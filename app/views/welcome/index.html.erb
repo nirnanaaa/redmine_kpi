@@ -1,0 +1,83 @@
+<h2><%= l(:label_home) %></h2>
+<div class="d3-container">
+  <style>
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+.focus circle {
+  fill: none;
+  stroke: steelblue;
+}
+
+.bar {
+  fill: steelblue;
+}
+
+.bar:hover {
+  fill: brown;
+}
+
+.title {
+  font: bold 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.axis {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+  </style>
+  <div class="splitcontentleft">
+    <fieldset>
+      <legend>Last 7 Days</legend>
+      <svg class="kpi-monthly-tickets"></svg>
+    </fieldset>
+    <fieldset>
+      <legend>Overall Ticket grow</legend>
+      <svg class="kpi-tickets-overall"></svg>
+    </fieldset>
+  </div>
+  <div class="splitcontentright">
+    <fieldset>
+      <legend>Last Month</legend>
+      <svg class="kpi-tickets-last-month"></svg>
+    </fieldset>
+  </div>
+  <%= javascript_include_tag 'd3_monthly', :plugin => 'redmine_kpi' %>
+  <%= javascript_include_tag 'd3_yearly', :plugin => 'redmine_kpi' %>
+  <%= javascript_include_tag 'd3_overall', :plugin => 'redmine_kpi' %>
+
+</div>
+
+
+<% content_for :header_tags do %>
+  <%= javascript_include_tag 'd3.min.js', :plugin => 'redmine_kpi' %>
+<% end %>
