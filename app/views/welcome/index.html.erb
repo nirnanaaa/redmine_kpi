@@ -1,4 +1,4 @@
-<h2><%= l(:label_home) %></h2>
+<h2>Dashboard</h2>
 <div class="d3-container">
   <style>
 .axis path,
@@ -55,29 +55,113 @@
   display: none;
 }
   </style>
-  <div class="splitcontentleft">
-    <fieldset>
-      <legend>Last 7 Days</legend>
-      <svg class="kpi-monthly-tickets"></svg>
-    </fieldset>
-    <fieldset>
-      <legend>Overall Ticket grow</legend>
-      <svg class="kpi-tickets-overall"></svg>
-    </fieldset>
+  <div class="row">
+    <div class="col-sm-6 graph" id="LastWeek">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="chart-wrapper">
+            <div class="chart-title">
+              Tickets in the last 7 days
+              <small class="pull-right">
+                <label class="pull-left" style="margin-right: 10px;">
+                    <%=select_tag "Project", options_from_collection_for_select(Project.all, "id", "name"), include_blank: true,class: 'proj-select' %>
+                </label>
+              </small>
+            </div>
+            <div class="chart-stage">
+              <canvas class="can" id="weekly-overview" height="100"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 graph" id="LastMonth">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="chart-wrapper">
+            <div class="chart-title">
+              Last Months Tickets
+              <small class="pull-right">
+                <label class="pull-left" style="margin-right: 10px;">
+                <%=select_tag "Project", options_from_collection_for_select(Project.all, "id", "name"), include_blank: true, class: 'proj-select'%>
+                </label>
+              </small>
+            </div>
+            <div class="chart-stage">
+              <canvas class="can" id="monthly-overview" height="100"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
-  <div class="splitcontentright">
-    <fieldset>
-      <legend>Last Month</legend>
-      <svg class="kpi-tickets-last-month"></svg>
-    </fieldset>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="chart-wrapper">
+            <div class="chart-stage" id="last-7-days-legend">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="chart-wrapper">
+            <div class="chart-stage" id="last-30-days-legend">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <%= javascript_include_tag 'd3_monthly', :plugin => 'redmine_kpi' %>
-  <%= javascript_include_tag 'd3_yearly', :plugin => 'redmine_kpi' %>
-  <%= javascript_include_tag 'd3_overall', :plugin => 'redmine_kpi' %>
+  <div class="row">
+    <div class="col-sm-6 graph" id="UserHoursLastMonth">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="chart-wrapper">
+            <div class="chart-title">
+              User Hours of the Last Month
+              <small class="pull-right">
+                <label class="pull-left" style="margin-right: 10px;">
+                    <%=select_tag "User", options_from_collection_for_select(User.all, "id", "login"), include_blank: true,class: 'proj-select' %>
+                </label>
+              </small>
+            </div>
+            <div class="chart-stage">
+              <canvas class="can" id="user-hours" height="100"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ <div class="row">
+    <div class="col-sm-6">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="chart-wrapper">
+            <div class="chart-stage" id="user-last-month-legend">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%= javascript_include_tag 'charts_draw', :plugin => 'redmine_kpi' %>
+  <%#= javascript_include_tag 'd3_monthly', :plugin => 'redmine_kpi' %>
+  <%#= javascript_include_tag 'd3_yearly', :plugin => 'redmine_kpi' %>
+  <%#= javascript_include_tag 'd3_overall', :plugin => 'redmine_kpi' %>
 
 </div>
 
 
 <% content_for :header_tags do %>
-  <%= javascript_include_tag 'd3.min.js', :plugin => 'redmine_kpi' %>
+  <%= stylesheet_link_tag 'dashboard.css', :plugin => 'redmine_kpi' %>
+  <%= javascript_include_tag 'Chart.js', :plugin => 'redmine_kpi' %>
+  <%= javascript_include_tag 'rgbcolor.js', 'StackBlur.js', 'canvg.js','svgenie.js', :plugin => 'redmine_kpi' %>
 <% end %>

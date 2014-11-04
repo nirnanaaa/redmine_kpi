@@ -1,4 +1,12 @@
+<%case params[:for]%>
+<%when 'overview_overall'%>
+name	global	tagesgeschaeft
+<%@tickets.each do |v| %>
+<%=v[:date]%>	<%=v[:global]%>	<%=v[:tagesgeschaeft]%>
+<%end%>
+<%else%>
 name	value
 <%@tickets.each do |k,d| %>
 <%= k %>	<%=d%>
+<%end%>
 <%end%>

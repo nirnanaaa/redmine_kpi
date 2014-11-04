@@ -1,0 +1,2 @@
+module VstatHelper
+end
